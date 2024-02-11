@@ -57,7 +57,7 @@ struct ContentView: View {
                         .frame(height: 50)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(lineWidth: 1)
+                                .stroke(lineWidth: 2)
                                 .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
                         }
                 }

@@ -24,7 +24,7 @@ struct CellView: View {
                 .overlay(
                     Text(value.map { "\($0)" } ?? "")
                         .foregroundColor(value != nil ? .black : .clear)
-                        .font(.system(size: 22))
+                        .font(.system(size: longSize * 0.75))
                 )
                 .overlay {
                     let offset = longSize / 2
