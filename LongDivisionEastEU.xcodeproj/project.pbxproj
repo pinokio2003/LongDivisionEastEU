@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A726EB2B2B77E37C007D4961 /* MainMathViewMacOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726EB2A2B77E37C007D4961 /* MainMathViewMacOs.swift */; };
+		A726EB2E2B77EC86007D4961 /* ContentViewMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726EB2D2B77EC86007D4961 /* ContentViewMacOS.swift */; };
 		A7B953452B73D1C400195BBB /* LongDivisionEastEUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B953442B73D1C400195BBB /* LongDivisionEastEUApp.swift */; };
 		A7B953472B73D1C400195BBB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B953462B73D1C400195BBB /* ContentView.swift */; };
 		A7B953492B73D1C500195BBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7B953482B73D1C500195BBB /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A726EB2A2B77E37C007D4961 /* MainMathViewMacOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMathViewMacOs.swift; sourceTree = "<group>"; };
+		A726EB2D2B77EC86007D4961 /* ContentViewMacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewMacOS.swift; sourceTree = "<group>"; };
 		A7B953412B73D1C400195BBB /* LongDivisionEastEU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LongDivisionEastEU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7B953442B73D1C400195BBB /* LongDivisionEastEUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongDivisionEastEUApp.swift; sourceTree = "<group>"; };
 		A7B953462B73D1C400195BBB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,6 +47,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A726EB272B77E30A007D4961 /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				A726EB2A2B77E37C007D4961 /* MainMathViewMacOs.swift */,
+				A726EB2D2B77EC86007D4961 /* ContentViewMacOS.swift */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
+		A726EB2C2B77E866007D4961 /* IOS */ = {
+			isa = PBXGroup;
+			children = (
+				A7B9535C2B73D2F600195BBB /* MainMathView.swift */,
+				A7B953462B73D1C400195BBB /* ContentView.swift */,
+			);
+			path = IOS;
+			sourceTree = "<group>";
+		};
 		A7B953382B73D1C400195BBB = {
 			isa = PBXGroup;
 			children = (
@@ -84,8 +106,8 @@
 		A7B953532B73D1F400195BBB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A7B953462B73D1C400195BBB /* ContentView.swift */,
-				A7B9535C2B73D2F600195BBB /* MainMathView.swift */,
+				A726EB2C2B77E866007D4961 /* IOS */,
+				A726EB272B77E30A007D4961 /* MacOS */,
 				A7B953592B73D2BF00195BBB /* Cell */,
 				A7B953562B73D27A00195BBB /* Button */,
 			);
@@ -194,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A726EB2E2B77EC86007D4961 /* ContentViewMacOS.swift in Sources */,
 				A7B953612B73D34500195BBB /* HelpFiles.swift in Sources */,
 				A7B953472B73D1C400195BBB /* ContentView.swift in Sources */,
 				A7B9535B2B73D2CD00195BBB /* Cell.swift in Sources */,
@@ -201,6 +224,7 @@
 				A7B953582B73D29A00195BBB /* CalculateButton.swift in Sources */,
 				A7B9535F2B73D32400195BBB /* MathViewModel.swift in Sources */,
 				A7B953452B73D1C400195BBB /* LongDivisionEastEUApp.swift in Sources */,
+				A726EB2B2B77E37C007D4961 /* MainMathViewMacOs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

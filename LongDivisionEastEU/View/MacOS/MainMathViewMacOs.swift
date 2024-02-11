@@ -1,21 +1,24 @@
 //
-//  MainMathView.swift
+//  MainMathViewMacOs.swift
 //  LongDivisionEastEU
 //
-//  Created by Anatolii Kravchuk on 07.02.2024.
+//  Created by Anatolii Kravchuk on 10.02.2024.
 //
 
 import SwiftUI
 
-struct MainMathView: View {
+struct MainMathViewMacOs: View {
     @ObservedObject var mathsViewModel: MathsViewModel
     
     @State var dividend: Int
     @State var divider: Int
+    //New :
+    var cellSize: CGFloat
     
-    init(mathsViewModel: MathsViewModel, dividend: Int, divider: Int) {
+    init(mathsViewModel: MathsViewModel, dividend: Int, divider: Int, cellSize: CGFloat) {
         self._dividend = State(initialValue: dividend)
         self._divider = State(initialValue: divider)
+        self.cellSize = cellSize
         self.mathsViewModel = mathsViewModel
         self.mathsViewModel.dividend = dividend
         self.mathsViewModel.divider = divider
@@ -24,9 +27,14 @@ struct MainMathView: View {
     
     
     var body: some View {
+        let values: [[Int?]] = mathsViewModel.finalAnswerArray
+        let numbersOfCells: Int = String(dividend).count * 2
+        // frame size calculate:
+        let frameSize = CGFloat(Int(cellSize) * numbersOfCells)
+        
         VStack(alignment: .leading, spacing: 0) {
-            let values: [[Int?]] = mathsViewModel.finalAnswerArray
-            let numbersOfCells: Int = String(dividend).count * 2
+            
+//            Slider(value: $cellSize, in: 30...100)
             
             ForEach(0..<numbersOfCells, id: \.self) { row in
                 HStack(spacing: 0) {
@@ -38,18 +46,21 @@ struct MainMathView: View {
                         
                         CellView(row: row,
                                  column: column,
-                                 value: value,
+                                 value: value, 
+                                 longSize: cellSize,
                                  blackSide: blackSide)
                     }
                 }
             }
+            
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(width: frameSize + frameSize * 0.1,
+               height: frameSize + frameSize * 0.1)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MainMathViewMacOs_Previews: PreviewProvider {
     static var previews: some View {
-        MainMathView(mathsViewModel: MathsViewModel(), dividend: 144, divider: 12)
+        MainMathViewMacOs(mathsViewModel: MathsViewModel(), dividend: 144, divider: 12, cellSize: 30)
     }
 }
