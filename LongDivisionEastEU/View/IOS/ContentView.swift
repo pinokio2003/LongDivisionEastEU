@@ -35,9 +35,7 @@ struct ContentView: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
-#if os(iOS)
                         .keyboardType(.numberPad)
-#endif
                         .background{
                             
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -51,9 +49,7 @@ struct ContentView: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
-                        #if os(iOS)
-                            .keyboardType(.numberPad)
-                        #endif
+                        .keyboardType(.numberPad)
                         .frame(height: 50)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -87,10 +83,14 @@ struct ContentView: View {
                 if taskStatus == .success {
                       ScrollView([.horizontal, .vertical]) {
                             ZStack(alignment: .topLeading ) {
+<<<<<<< HEAD
 #if os(iOS)
                                 MainMathViewMacOs(mathsViewModel: MathsViewModel(), dividend: dividend,
                                              divider: divider)
 #endif
+=======
+
+>>>>>>> MacOsContentView
                                 MainMathView(mathsViewModel: MathsViewModel(), dividend: dividend,
                                              divider: divider)
                             }

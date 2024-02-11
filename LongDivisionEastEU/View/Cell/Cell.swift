@@ -11,7 +11,7 @@ struct CellView: View {
     let row: Int
     let column: Int
     let value: Int?
-    let longSize: CGFloat = 30
+    var longSize: CGFloat
     let shortSize: CGFloat = 1
     @State var blackSide: String?
     
@@ -67,7 +67,7 @@ struct CellView: View {
 
 
 #Preview {
-    CellView(row: 1, column: 1, value: 42, blackSide: "topLeft")
+    CellView(row: 1, column: 1, value: 42, longSize: 30, blackSide: "topLeft")
 }
 
 

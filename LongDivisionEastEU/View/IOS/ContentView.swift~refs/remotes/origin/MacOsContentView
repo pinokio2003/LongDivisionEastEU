@@ -1,23 +1,15 @@
 //
-//  ContentViewMacOs.swift
+//  ContentView.swift
 //  LongDivisionEastEU
 //
-//  Created by Anatolii Kravchuk on 10.02.2024.
+//  Created by Anatolii Kravchuk on 07.02.2024.
 //
 
 import SwiftUI
 
-<<<<<<< HEAD
-struct ContentViewMacOs: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-=======
-struct ContentViewMacOS: View {
-    //Size and resizeble properties
+struct ContentView: View {
+    
     @State var fontSize: CGFloat = 32
-    @State var cellSize: CGFloat = 30
-
-    //Other property
     @State private var dividendString: String = ""
     @State private var divisorString: String = ""
     @State var isAllOk: Bool = false
@@ -26,7 +18,8 @@ struct ContentViewMacOS: View {
     @State private var taskStatus: TaskStatus = .idle
     @FocusState var isFocusedDividend
     
-
+    //    @StateObject var mathsModel: MathsViewModel
+    
     
     var body: some View {
         ZStack {
@@ -42,6 +35,9 @@ struct ContentViewMacOS: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
+#if os(iOS)
+                        .keyboardType(.numberPad)
+#endif
                         .background{
                             
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -55,6 +51,9 @@ struct ContentViewMacOS: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
+                        #if os(iOS)
+                            .keyboardType(.numberPad)
+                        #endif
                         .frame(height: 50)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -83,53 +82,33 @@ struct ContentViewMacOS: View {
                     return taskStatus
                 }
                 
-                Slider(value: $cellSize, in: 30...100)
                 
 //MARK: --  Main
                 if taskStatus == .success {
-                    //Resize :
-                    
-                GeometryReader { geo in
-                    ScrollView([.horizontal, .vertical]) {
-                       
-                            HStack {
-//
-//                                Image(systemName: "square.resize")
-//                                    .rotationEffect(Angle(degrees: 90))
-//                                    .position(x: geo.size.width / 6 , y: geo.size.height / 6)
-//                                    .gesture(
-//                                    DragGesture(minimumDistance: 10)
-//                                        .onChanged({ value in
-//                                            cellSize = cellSize + 5
-//                                            print(cellSize)
-//                                        })
-//                                    
-//                                    )
-                                
-                                MainMathViewMacOs(mathsViewModel: MathsViewModel(),
-                                    dividend: dividend,
-                                    divider: divider,
-                                    cellSize: cellSize)
-                                
+                      ScrollView([.horizontal, .vertical]) {
+                            ZStack(alignment: .topLeading ) {
+#if os(iOS)
+                                MainMathViewMacOs(mathsViewModel: MathsViewModel(), dividend: dividend,
+                                             divider: divider)
+#endif
+                                MainMathView(mathsViewModel: MathsViewModel(), dividend: dividend,
+                                             divider: divider)
                             }
-                            
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background{
                                 RoundedRectangle(cornerRadius: 10).foregroundColor(.white)
                                     .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
                             }
                         }
-                        .onTapGesture {
-                            isFocusedDividend = false
-                        }
+                      .onTapGesture {
+                          isFocusedDividend = false
+                      }
                     }
-//                .frame(width: scrollViewSize.width, height: scrollViewSize.height, alignment: .center)
-                }
+
 
                 }
-
             }
-
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
 
         }
@@ -149,18 +128,11 @@ struct ContentViewMacOS: View {
         } else {
             return isAllOk = false
         }
->>>>>>> MacOsContentView
     }
 }
-
 #Preview {
-<<<<<<< HEAD
-    ContentViewMacOs()
-}
-=======
-    ContentViewMacOS(divider: 124 , dividend: 12)
+    ContentView(divider: 12 , dividend: 1)
 }
 
 
 
->>>>>>> MacOsContentView
