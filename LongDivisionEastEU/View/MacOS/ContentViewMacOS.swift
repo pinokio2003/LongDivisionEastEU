@@ -53,7 +53,7 @@ struct ContentViewMacOS: View {
                         .frame(height: 50)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(lineWidth: 1)
+                                .stroke(lineWidth: 2)
                                 .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
                         }
                 }
@@ -79,7 +79,8 @@ struct ContentViewMacOS: View {
                     return taskStatus
                 }
                 
-//                .keyboardShortcut(.defaultAction) //Use return and enter button
+                .keyboardShortcut(.defaultAction) //Use return and enter button
+                .buttonStyle(.borderless)
 //Zoom Slider
                 Slider(value: $cellSize, in: 30...100)
                 

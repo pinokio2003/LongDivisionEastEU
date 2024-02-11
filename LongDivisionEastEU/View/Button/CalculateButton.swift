@@ -59,8 +59,18 @@ struct CalculateButton<ButtonContent: View>: View {
                 .lineLimit(1)
                 .frame(width: isLoading ? 35 : nil,
                        height: isLoading ? 35 : nil)
-                .background(Color(taskStatus == .idle ? buttonTint : taskStatus == .success ? .blue : .red).shadow(.drop(color: .background, radius: 6)), in: .capsule)
-            
+                .background {
+                    GeometryReader {
+                        let size = $0.size
+                        let circleRadius = 35.0
+                        
+                        Capsule()
+                            .fill(Color(taskStatus == .idle ? buttonTint : taskStatus == .success ? .blue : .red).shadow(.drop(color: .black.opacity(0.15), radius: 6)))
+                            .frame(width: isLoading ? circleRadius : nil, height: isLoading ? circleRadius : nil)
+                            .frame(width: size.width, height: size.height, alignment: .center)
+                    }
+                }
+                
                 .background{
                     RoundedRectangle(cornerRadius: 30, style: .continuous)
                         .fill(
