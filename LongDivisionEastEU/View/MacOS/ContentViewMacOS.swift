@@ -65,6 +65,7 @@ struct ContentViewMacOS: View {
                             .foregroundColor(.black)
                     }
                     .font(.custom("", size: fontSize)).bold()
+                    
                 } action: {
                     taskStatus = .idle
                     checkIsAllGood()
@@ -78,6 +79,8 @@ struct ContentViewMacOS: View {
                     return taskStatus
                 }
                 
+//                .keyboardShortcut(.defaultAction) //Use return and enter button
+//Zoom Slider
                 Slider(value: $cellSize, in: 30...100)
                 
 //MARK: --  Main

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalculateButton<ButtonContent: View>: View {
-    var buttonTint: Color = .white
+    var buttonTint: Color = .clear
     var content: () -> ButtonContent
     let deg: CGFloat = 164
     /// action
@@ -50,21 +50,21 @@ struct CalculateButton<ButtonContent: View>: View {
                 self.taskStatus = .idle
                 isLoading = false
             }
-       
+            
         }, label: {
             content()
                 .padding(.horizontal, 20)
                 .padding(.vertical, 2)
                 .opacity(isLoading ? 0 : 1)
                 .lineLimit(1)
-                .frame(width: isLoading ? 50 : nil,
-                       height: isLoading ? 50 : nil)
-                .background(Color(taskStatus == .idle ? buttonTint : taskStatus == .success ? .blue : .red).shadow(.drop(color: .black.opacity(0.15), radius: 6)), in: .capsule)
-                
+                .frame(width: isLoading ? 35 : nil,
+                       height: isLoading ? 35 : nil)
+                .background(Color(taskStatus == .idle ? buttonTint : taskStatus == .success ? .blue : .red).shadow(.drop(color: .background, radius: 6)), in: .capsule)
+            
                 .background{
                     RoundedRectangle(cornerRadius: 30, style: .continuous)
                         .fill(
-                            LinearGradient(gradient: Gradient(colors: [Color.buttonFirst,.white]), startPoint: .top, endPoint: .bottomTrailing)
+                            LinearGradient(gradient: Gradient(colors: [Color.gray,.white]), startPoint: .top, endPoint: .bottomTrailing)
                         )
                         .blur(radius: 10)
                         .offset(x: -10, y: -10)
@@ -80,7 +80,7 @@ struct CalculateButton<ButtonContent: View>: View {
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 30,style: .continuous))
                 .shadow(color: .black.opacity(0.2), radius: 20, x: 25, y: 15)
-                
+            
                 .overlay {
                     if isLoading && taskStatus == .idle {
                         ProgressView()
@@ -90,7 +90,7 @@ struct CalculateButton<ButtonContent: View>: View {
                     if taskStatus != .idle {
                         Image(systemName: isFailed ? "exclamationmark.octagon.fill" : "equal")
                             .font(.title2.bold())
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.background)
                     }
                 }
                 .wiggle(wiggle)
@@ -105,13 +105,14 @@ struct CalculateButton<ButtonContent: View>: View {
         })
         .animation(.snappy, value: isLoading)
         .animation(.snappy, value: taskStatus)
+     
     }
 }
 
 enum TaskStatus: Equatable {
-        case idle
-        case failed(String)
-        case success
+    case idle
+    case failed(String)
+    case success
 }
 
 //extention дрожжание красной кнопки:
@@ -119,9 +120,8 @@ extension View {
     @ViewBuilder
     func wiggle(_ animate: Bool) -> some View {
         self
-            .keyframeAnimator(initialValue: CGFloat.zero,
-                              trigger: animate) { view, value in
-                view
+            .keyframeAnimator(initialValue: CGFloat.zero, trigger: animate) { view,
+                value in view
                     .offset(x: value)
             } keyframes: { _ in
                 KeyframeTrack {
@@ -138,9 +138,9 @@ extension View {
     }
 }
 
- 
 #Preview {
-    ContentView(divider: 12, dividend: 1)
+    //    ContentView(divider: 12, dividend: 1)
+    ContentViewMacOS(divider: 12, dividend: 2)
 }
 
 
