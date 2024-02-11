@@ -35,7 +35,9 @@ struct ContentView: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
+#if os(iOS)
                         .keyboardType(.numberPad)
+#endif
                         .background{
                             
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -49,7 +51,9 @@ struct ContentView: View {
                         .padding()
                         .frame(height: 50)
                         .font(.title)
+#if os(iOS)
                         .keyboardType(.numberPad)
+#endif
                         .frame(height: 50)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
