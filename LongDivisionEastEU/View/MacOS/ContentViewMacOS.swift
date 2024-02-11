@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-<<<<<<< HEAD
-struct ContentViewMacOs: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-=======
 struct ContentViewMacOS: View {
     //Size and resizeble properties
     @State var fontSize: CGFloat = 32
@@ -149,18 +144,10 @@ struct ContentViewMacOS: View {
         } else {
             return isAllOk = false
         }
->>>>>>> MacOsContentView
     }
 }
 
 #Preview {
-<<<<<<< HEAD
-    ContentViewMacOs()
-}
-=======
     ContentViewMacOS(divider: 124 , dividend: 12)
 }
 
-
-
->>>>>>> MacOsContentView

@@ -83,14 +83,7 @@ struct ContentView: View {
                 if taskStatus == .success {
                       ScrollView([.horizontal, .vertical]) {
                             ZStack(alignment: .topLeading ) {
-<<<<<<< HEAD
-#if os(iOS)
-                                MainMathViewMacOs(mathsViewModel: MathsViewModel(), dividend: dividend,
-                                             divider: divider)
-#endif
-=======
 
->>>>>>> MacOsContentView
                                 MainMathView(mathsViewModel: MathsViewModel(), dividend: dividend,
                                              divider: divider)
                             }
