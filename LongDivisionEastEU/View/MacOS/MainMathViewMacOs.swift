@@ -8,15 +8,7 @@
 import SwiftUI
 
 struct MainMathViewMacOs: View {
-<<<<<<< HEAD
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    MainMathViewMacOs()
-=======
+    
     @ObservedObject var mathsViewModel: MathsViewModel
     
     @State var dividend: Int
@@ -72,5 +64,4 @@ struct MainMathViewMacOs_Previews: PreviewProvider {
     static var previews: some View {
         MainMathViewMacOs(mathsViewModel: MathsViewModel(), dividend: 144, divider: 12, cellSize: 30)
     }
->>>>>>> MacOsContentView
 }
