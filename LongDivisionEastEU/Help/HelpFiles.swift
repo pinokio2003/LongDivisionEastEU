@@ -49,6 +49,10 @@ extension Color {
     static let buttonFirst = Color(red: 226/255, green: 226/255, blue: 226/255)
 }
 
+extension NSColor {
+    static let backgroundNSColor = NSColor(red: 232/255, green: 232/255, blue: 232/255, alpha: 1)
+}
+
 // Display size calculate
 func calculateDisplaySize(width: CGFloat) -> CGFloat {
     // Рассчитываем значение переменной deg в зависимости от ширины экрана
