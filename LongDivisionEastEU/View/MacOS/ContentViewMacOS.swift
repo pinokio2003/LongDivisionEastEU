@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import Sliders
 
 struct ContentViewMacOS: View {
     //Size and resizeble properties
     @State var fontSize: CGFloat = 32
     @State var cellSize: CGFloat = 30
-
     //Other property
     @State private var dividendString: String = ""
     @State private var divisorString: String = ""
@@ -20,122 +20,121 @@ struct ContentViewMacOS: View {
     @State var dividend: Int
     @State private var taskStatus: TaskStatus = .idle
     @FocusState var isFocusedDividend
+    // Setting Tab Bar
+    @StateObject private var tabModel = SettingsTabBarModel()
+    @Environment(\.controlActiveState) private var state
+    // Button for settings
+    @State var isSettingsOn = false
     
-
     
     var body: some View {
         ZStack {
             Color(Color.background)
                 .ignoresSafeArea()
-    
-            GeometryReader { geometry in
             
-            VStack {
-                HStack {
-                    TextField("Dividend", text: $dividendString)
-                        .focused($isFocusedDividend)
-                        .padding()
-                        .frame(height: 50)
-                        .font(.title)
-                        .background{
+            HStack {
+
+                    if taskStatus == .success {
+                        
+                        Image(systemName: "plus.magnifyingglass")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundStyle(Color.gray)
+                        Spacer()
                             
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(lineWidth: 2)
-                                .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
-                        }
-                    Text("/")
-                    
-                    TextField("Divisor", text: $divisorString)
-                        .focused($isFocusedDividend)
-                        .padding()
-                        .frame(height: 50)
-                        .font(.title)
-                        .frame(height: 50)
-                        .background{
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(lineWidth: 2)
-                                .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
-                        }
-                }
-                .padding()
-//MARK: --  Calculate button:
-                CalculateButton(buttonTint: .clear){
-                    HStack {
-                        Text("Calculate")
-                            .foregroundColor(.black)
-                    }
-                    .font(.custom("", size: fontSize)).bold()
-                    
-                } action: {
-                    taskStatus = .idle
-                    checkIsAllGood()
-                    isFocusedDividend = false
-                    try? await Task.sleep(for: .seconds(0.5))
-                    
-                    print(isAllOk)
-                    
-                    taskStatus = isAllOk ? .success : .failed("You cannot use 0 as a divisor or dividend")
-                    
-                    return taskStatus
+                        Slider(value: $cellSize, in: 30...100)
                 }
                 
-                .keyboardShortcut(.defaultAction) //Use return and enter button
-                .buttonStyle(.borderless)
-//Zoom Slider
-                Slider(value: $cellSize, in: 30...100)
-                
-//MARK: --  Main
-                if taskStatus == .success {
-                    //Resize :
-                    
-                GeometryReader { geo in
-                    ScrollView([.horizontal, .vertical]) {
-                       
-                            HStack {
-//
-//                                Image(systemName: "square.resize")
-//                                    .rotationEffect(Angle(degrees: 90))
-//                                    .position(x: geo.size.width / 6 , y: geo.size.height / 6)
-//                                    .gesture(
-//                                    DragGesture(minimumDistance: 10)
-//                                        .onChanged({ value in
-//                                            cellSize = cellSize + 5
-//                                            print(cellSize)
-//                                        })
-//                                    
-//                                    )
-                                
-                                MainMathViewMacOs(mathsViewModel: MathsViewModel(),
-                                    dividend: dividend,
-                                    divider: divider,
-                                    cellSize: cellSize)
-                                
-                            }
-                            
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background{
-                                RoundedRectangle(cornerRadius: 10).foregroundColor(.white)
-                                    .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
-                            }
-                        }
-                        .onTapGesture {
-                            isFocusedDividend = false
-                        }
-                    }
-//                .frame(width: scrollViewSize.width, height: scrollViewSize.height, alignment: .center)
-                }
-
-                }
-
             }
-
-
-
+            .frame(width: 155, height: 30)
+            .position(x: 90, y: 110)
+            
+            //MARK: - Main Content:
+            GeometryReader { geometry in
+                VStack {
+                    HStack {
+                        TextField("Dividend", text: $dividendString)
+                            .focused($isFocusedDividend)
+                            .padding()
+                            .frame(height: 50)
+                            .font(.title)
+                            .background{
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .stroke(lineWidth: 2)
+                                    .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
+                            }
+                        Text("/")
+                        TextField("Divisor", text: $divisorString)
+                            .focused($isFocusedDividend)
+                            .padding()
+                            .frame(height: 50)
+                            .font(.title)
+                            .frame(height: 50)
+                            .background{
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .stroke(lineWidth: 2)
+                                    .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
+                            }
+                    }
+                    .padding()
+                    
+                    //MARK: --  Calculate button:
+                    
+                    CalculateButton(buttonTint: .clear){
+                        HStack {
+                            Text("Calculate")
+                                .foregroundColor(.black)
+                        }
+                        .font(.custom("", size: fontSize)).bold()
+                        
+                    } action: {
+                        taskStatus = .idle
+                        checkIsAllGood()
+                        isFocusedDividend = false
+                        try? await Task.sleep(for: .seconds(0.5))
+                        
+                        print(isAllOk)
+                        
+                        taskStatus = isAllOk ? .success : .failed("You cannot use 0 as a divisor or dividend")
+                        
+                        return taskStatus
+                    }
+                    
+                    .keyboardShortcut(.defaultAction) //Use return and enter button
+                    .buttonStyle(.borderless)
+                    
+                    //MARK: --  Main
+                    if taskStatus == .success {
+                        //Resize :
+                        
+                        GeometryReader { geo in
+                            ScrollView([.horizontal, .vertical]) {
+                                
+                                HStack {
+                                    
+                                    MainMathViewMacOs(mathsViewModel: MathsViewModel(),
+                                                      dividend: dividend,
+                                                      divider: divider,
+                                                      cellSize: cellSize)
+                                    
+                                }
+                                
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background{
+                                    RoundedRectangle(cornerRadius: 10).foregroundColor(.white)
+                                        .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
+                                }
+                            }
+                            .onTapGesture {
+                                isFocusedDividend = false
+                            }
+                        }
+                    }
+                }
+            }
         }
-//        .ignoresSafeArea()
-//        .background(Color.background)
-//        .background(ignoresSafeAreaEdges: .bottom)
-}
+    }
+    
     func checkIsAllGood() {
         let a = Int(dividendString) ?? 0
         let b = Int(divisorString) ?? 0
