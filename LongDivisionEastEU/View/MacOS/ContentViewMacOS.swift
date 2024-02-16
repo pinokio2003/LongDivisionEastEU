@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Sliders
 
 struct ContentViewMacOS: View {
     //Size and resizeble properties
@@ -21,8 +20,8 @@ struct ContentViewMacOS: View {
     @State private var taskStatus: TaskStatus = .idle
     @FocusState var isFocusedDividend
     // Setting Tab Bar
-    @StateObject private var tabModel = SettingsTabBarModel()
-    @Environment(\.controlActiveState) private var state
+//    @StateObject private var tabModel = SettingsTabBarModel()
+//    @Environment(\.controlActiveState) private var state
     // Button for settings
     @State var isSettingsOn = false
     
