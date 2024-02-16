@@ -108,8 +108,8 @@ struct CalculateButton<ButtonContent: View>: View {
         .disabled(isLoading)
         .popover(isPresented: $showPopup, content: {
             Text(popupMassage)
-                .font(.caption)
-                .foregroundStyle(.gray)
+                .font(.title2)
+                .foregroundStyle(Color.white)
                 .padding(.horizontal, 10)
                 .presentationCompactAdaptation(.popover)
         })
