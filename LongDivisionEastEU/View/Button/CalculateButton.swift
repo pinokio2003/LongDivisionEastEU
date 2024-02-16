@@ -108,10 +108,16 @@ struct CalculateButton<ButtonContent: View>: View {
         .disabled(isLoading)
         .popover(isPresented: $showPopup, content: {
             Text(popupMassage)
+#if os(iOS)
+                .font(.caption)
+                .foregroundStyle(Color.black.opacity(0.8))
+                .presentationCompactAdaptation(.popover)
+#else
                 .font(.title2)
                 .foregroundStyle(Color.white)
+                .presentationCompactAdaptation(.automatic)
+#endif
                 .padding(.horizontal, 10)
-                .presentationCompactAdaptation(.popover)
         })
         .animation(.snappy, value: isLoading)
         .animation(.snappy, value: taskStatus)

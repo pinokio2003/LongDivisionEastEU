@@ -84,7 +84,7 @@ struct ContentViewMacOS: View {
                         
                         print(isAllOk)
                         
-                        taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? "Some interesting problem")
+                        taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? "The dividend cannot be less than the divisor")
                         
                         return taskStatus
                     }
@@ -124,7 +124,7 @@ struct ContentViewMacOS: View {
         }
     }
     
-    func checkIsAllGood() {
+  private func checkIsAllGood() {
         let a = Int(dividendString) ?? 0
         let b = Int(divisorString) ?? 0
         
@@ -138,7 +138,7 @@ struct ContentViewMacOS: View {
         }
     }
     
-    func errorAnswer() -> String? {
+ private func errorAnswer() -> String? {
         var errorMessage = ""
             //
         if dividendString.contains(".") ||
@@ -157,13 +157,18 @@ struct ContentViewMacOS: View {
                             """
         }
         
-        if Int(dividendString) == nil {
+        if Int(dividendString) == nil ||
+            Int(divisorString) == nil {
             errorMessage += "Use only digits. "
         }
         
-        if Int(divisorString) == nil {
-            errorMessage += "Use only digits. "
-        }
+        if Int(dividendString) == 0 ||
+        Int(divisorString) == 0 {
+           errorMessage += """
+                           The number can't be 0
+                           """
+       }
+        
         return errorMessage.isEmpty ? nil : errorMessage
     }
     

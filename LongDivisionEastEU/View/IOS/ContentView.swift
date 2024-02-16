@@ -77,7 +77,7 @@ struct ContentView: View {
                     
                     print(isAllOk)
                     
-                    taskStatus = isAllOk ? .success : .failed("You cannot use 0 as a divisor or dividend")
+                    taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? "The dividend cannot be less than the divisor")
                     
                     return taskStatus
                 }
@@ -113,19 +113,54 @@ struct ContentView: View {
 //        .background(Color.background)
 //        .background(ignoresSafeAreaEdges: .bottom)
 }
-    func checkIsAllGood() {
-        let a = Int(dividendString) ?? 0
-        let b = Int(divisorString) ?? 0
-        
-        if a > 0 && b > 0 && a > b {
-            divider = Int(divisorString)!
-            dividend = Int(dividendString)!
-            
-            return isAllOk = true
-        } else {
-            return isAllOk = false
-        }
-    }
+    
+    private func checkIsAllGood() {
+          let a = Int(dividendString) ?? 0
+          let b = Int(divisorString) ?? 0
+          
+          if a > 0 && b > 0 && a >= b {
+              divider = Int(divisorString)!
+              dividend = Int(dividendString)!
+              
+              return isAllOk = true
+          } else {
+              return isAllOk = false
+          }
+      }
+      
+   private func errorAnswer() -> String? {
+          var errorMessage = ""
+              //
+          if dividendString.contains(".") ||
+              divisorString.contains(".") {
+              errorMessage += """
+                              The symbol "." cannot be used.
+                              The number can only be an integer.
+                              """
+          }
+          
+           if dividendString.contains("-") ||
+              divisorString.contains("-") {
+              errorMessage += """
+                              The symbol "-" cannot be used.
+                              The number can only positive.
+                              """
+          }
+          
+          if Int(dividendString) == nil || 
+            Int(divisorString) == nil {
+              errorMessage += "Use only digits. "
+          }
+          
+          if Int(dividendString) == 0 ||
+          Int(divisorString) == 0 {
+             errorMessage += """
+                             The number can't be 0
+                             """
+         }
+          
+          return errorMessage.isEmpty ? nil : errorMessage
+      }
 }
 #Preview {
     ContentView(divider: 12 , dividend: 1)
