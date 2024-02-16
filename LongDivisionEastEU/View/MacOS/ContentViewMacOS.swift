@@ -19,20 +19,12 @@ struct ContentViewMacOS: View {
     @State var dividend: Int
     @State private var taskStatus: TaskStatus = .idle
     @FocusState var isFocusedDividend
-    // Setting Tab Bar
-//    @StateObject private var tabModel = SettingsTabBarModel()
-//    @Environment(\.controlActiveState) private var state
-    // Button for settings
-    @State var isSettingsOn = false
-    
     
     var body: some View {
         ZStack {
             Color(Color.background)
                 .ignoresSafeArea()
-            
             HStack {
-
                     if taskStatus == .success {
                         
                         Image(systemName: "plus.magnifyingglass")
@@ -40,10 +32,8 @@ struct ContentViewMacOS: View {
                             .scaledToFit()
                             .foregroundStyle(Color.gray)
                         Spacer()
-                            
                         Slider(value: $cellSize, in: 30...100)
                 }
-                
             }
             .frame(width: 155, height: 30)
             .position(x: 90, y: 110)
@@ -94,7 +84,7 @@ struct ContentViewMacOS: View {
                         
                         print(isAllOk)
                         
-                        taskStatus = isAllOk ? .success : .failed("You cannot use 0 as a divisor or dividend")
+                        taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? "Some interesting problem")
                         
                         return taskStatus
                     }
@@ -138,7 +128,7 @@ struct ContentViewMacOS: View {
         let a = Int(dividendString) ?? 0
         let b = Int(divisorString) ?? 0
         
-        if a > 0 && b > 0 && a > b {
+        if a > 0 && b > 0 && a >= b {
             divider = Int(divisorString)!
             dividend = Int(dividendString)!
             
@@ -147,6 +137,36 @@ struct ContentViewMacOS: View {
             return isAllOk = false
         }
     }
+    
+    func errorAnswer() -> String? {
+        var errorMessage = ""
+            //
+        if dividendString.contains(".") ||
+            divisorString.contains(".") {
+            errorMessage += """
+                            The symbol "." cannot be used.
+                            The number can only be an integer.
+                            """
+        }
+        
+         if dividendString.contains("-") ||
+            divisorString.contains("-") {
+            errorMessage += """
+                            The symbol "-" cannot be used.
+                            The number can only positive.
+                            """
+        }
+        
+        if Int(dividendString) == nil {
+            errorMessage += "Use only digits. "
+        }
+        
+        if Int(divisorString) == nil {
+            errorMessage += "Use only digits. "
+        }
+        return errorMessage.isEmpty ? nil : errorMessage
+    }
+    
 }
 
 #Preview {

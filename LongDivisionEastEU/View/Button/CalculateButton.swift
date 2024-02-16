@@ -149,7 +149,6 @@ extension View {
 }
 
 #Preview {
-    //    ContentView(divider: 12, dividend: 1)
     ContentViewMacOS(divider: 12, dividend: 2)
 }
 

@@ -22,6 +22,7 @@ struct European_Long_DivisionApp: App {
             ContentViewMacOS(divider: 144, dividend: 12)
                 .environment(\.colorScheme, .light)
         }
+        
     }
 #endif
 }
