@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var cellSize: CGFloat = 30
     @State var fontSize: CGFloat = 32
+    
     @State private var dividendString: String = ""
     @State private var divisorString: String = ""
     @State var isAllOk: Bool = false
@@ -87,31 +89,28 @@ struct ContentView: View {
                 if taskStatus == .success {
                       ScrollView([.horizontal, .vertical]) {
                             ZStack(alignment: .topLeading ) {
-
-                                MainMathView(mathsViewModel: MathsViewModel(), dividend: dividend,
-                                             divider: divider)
+                                MainMathViewMacOs(mathsViewModel: MathsViewModel(),
+                                                  dividend: dividend,
+                                                  divider: divider,
+                                                  cellSize: cellSize)
+                                
+                            
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background{
                                 RoundedRectangle(cornerRadius: 10).foregroundColor(.white)
                                     .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
                             }
+//                            .pinchToZoom(minimumScale: 1, maximumScale: 2.5)
                         }
                       .onTapGesture {
                           isFocusedDividend = false
                       }
                     }
-
-
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-
         }
-//        .ignoresSafeArea()
-//        .background(Color.background)
-//        .background(ignoresSafeAreaEdges: .bottom)
 }
     
     private func checkIsAllGood() {

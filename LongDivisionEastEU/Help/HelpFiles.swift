@@ -59,3 +59,31 @@ func calculateDisplaySize(width: CGFloat) -> CGFloat {
     // Например, половина ширины экрана
     return width * 3.29
 }
+
+//Zoom modifire :
+struct PinchToZoom: ViewModifier {
+    @State private var scale: CGFloat = 1.0
+    let minimumScale: CGFloat
+    let maximumScale: CGFloat
+
+    init(minimumScale: CGFloat = 1.0, maximumScale: CGFloat = 5.0) {
+        self.minimumScale = minimumScale
+        self.maximumScale = maximumScale
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(scale)
+            .gesture(
+                MagnificationGesture()
+                    .onChanged { scale = min(max($0, minimumScale), maximumScale) }
+                    .onEnded { _ in scale = scale }
+            )
+    }
+}
+
+extension View {
+    func pinchToZoom(minimumScale: CGFloat = 1.0, maximumScale: CGFloat = 5.0) -> some View {
+        modifier(PinchToZoom(minimumScale: minimumScale, maximumScale: maximumScale))
+    }
+}

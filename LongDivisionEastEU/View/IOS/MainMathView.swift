@@ -38,7 +38,8 @@ struct MainMathView: View {
                         
                         CellView(row: row,
                                  column: column,
-                                 value: value, longSize: 30,
+                                 value: value,
+                                 longSize: 30,
                                  blackSide: blackSide)
                     }
                 }
