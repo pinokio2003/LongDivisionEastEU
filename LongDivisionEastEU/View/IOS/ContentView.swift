@@ -27,139 +27,136 @@ struct ContentView: View {
         ZStack {
             Color(Color.background)
                 .ignoresSafeArea()
-    
-            GeometryReader { geometry in
             
-            VStack {
-                HStack {
-                    TextField("Dividend", text: $dividendString)
-                        .focused($isFocusedDividend)
-                        .padding()
-                        .frame(height: 50)
-                        .font(.title)
-#if os(iOS)
-                        .keyboardType(.numberPad)
-#endif
-                        .background{
-                            
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(lineWidth: 2)
-                                .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
-                        }
-                    Text("/")
-                    
-                    TextField("Divisor", text: $divisorString)
-                        .focused($isFocusedDividend)
-                        .padding()
-                        .frame(height: 50)
-                        .font(.title)
-#if os(iOS)
-                        .keyboardType(.numberPad)
-#endif
-                        .frame(height: 50)
-                        .background{
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(lineWidth: 2)
-                                .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
-                        }
-                }
-                .padding()
-//MARK: --  Calculate button:
-                CalculateButton(buttonTint: .clear){
+            GeometryReader { geometry in
+                
+                VStack {
                     HStack {
-                        Text("Calculate")
-                            .foregroundColor(.black)
+                        TextField("Dividend", text: $dividendString)
+                            .focused($isFocusedDividend)
+                            .padding()
+                            .frame(height: 50)
+                            .font(.title)
+#if os(iOS)
+                            .keyboardType(.numberPad)
+#endif
+                            .background{
+                                
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .stroke(lineWidth: 2)
+                                    .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
+                            }
+                        Text("/")
+                        
+                        TextField("Divisor", text: $divisorString)
+                            .focused($isFocusedDividend)
+                            .padding()
+                            .frame(height: 50)
+                            .font(.title)
+#if os(iOS)
+                            .keyboardType(.numberPad)
+#endif
+                            .frame(height: 50)
+                            .background{
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .stroke(lineWidth: 2)
+                                    .foregroundStyle(LinearGradient(colors: [.gray], startPoint: .top, endPoint: .topTrailing))
+                            }
                     }
-                    .font(.custom("", size: fontSize)).bold()
-                } action: {
-                    taskStatus = .idle
-                    checkIsAllGood()
-                    isFocusedDividend = false
-                    try? await Task.sleep(for: .seconds(0.5))
+                    .padding()
+                    //MARK: --  Calculate button:
+                    CalculateButton(buttonTint: .clear){
+                        HStack {
+                            Text("Calculate")
+                                .foregroundColor(.black)
+                        }
+                        .font(.custom("", size: fontSize)).bold()
+                    } action: {
+                        taskStatus = .idle
+                        checkIsAllGood()
+                        isFocusedDividend = false
+                        try? await Task.sleep(for: .seconds(0.5))
+                        
+                        print(isAllOk)
+                        
+                        taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? NSLocalizedString("errorFive", comment: "divid > divire"))
+                        
+                        return taskStatus
+                    }
                     
-                    print(isAllOk)
                     
-                    taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? "The dividend cannot be less than the divisor")
-                    
-                    return taskStatus
-                }
-                
-                
-//MARK: --  Main
-                if taskStatus == .success {
-                      ScrollView([.horizontal, .vertical]) {
+                    //MARK: --  Main
+                    if taskStatus == .success {
+                        ScrollView([.horizontal, .vertical]) {
                             ZStack(alignment: .topLeading ) {
                                 MainMathViewMacOs(mathsViewModel: MathsViewModel(),
                                                   dividend: dividend,
                                                   divider: divider,
                                                   cellSize: cellSize)
                                 
-                            
+                                
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background{
                                 RoundedRectangle(cornerRadius: 10).foregroundColor(.white)
                                     .shadow(color: .black.opacity(0.2), radius: 5, x: 10, y: 4)
                             }
-//                            .pinchToZoom(minimumScale: 1, maximumScale: 2.5)
+                            //                            .pinchToZoom(minimumScale: 1, maximumScale: 2.5)
                         }
-                      .onTapGesture {
-                          isFocusedDividend = false
-                      }
+                        .onTapGesture {
+                            isFocusedDividend = false
+                        }
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-}
+    }
     
     private func checkIsAllGood() {
-          let a = Int(dividendString) ?? 0
-          let b = Int(divisorString) ?? 0
-          
-          if a > 0 && b > 0 && a >= b {
-              divider = Int(divisorString)!
-              dividend = Int(dividendString)!
-              
-              return isAllOk = true
-          } else {
-              return isAllOk = false
-          }
-      }
-      
-   private func errorAnswer() -> String? {
-          var errorMessage = ""
-              //
-          if dividendString.contains(".") ||
-              divisorString.contains(".") {
-              errorMessage += """
-                              The symbol "." cannot be used.
-                              The number can only be an integer.
-                              """
-          }
-          
-           if dividendString.contains("-") ||
-              divisorString.contains("-") {
-              errorMessage += """
-                              The symbol "-" cannot be used.
-                              The number can only positive.
-                              """
-          }
-          
-          if Int(dividendString) == nil || 
+        let a = Int(dividendString) ?? 0
+        let b = Int(divisorString) ?? 0
+        
+        if a > 0 && b > 0 && a >= b {
+            divider = Int(divisorString)!
+            dividend = Int(dividendString)!
+            
+            return isAllOk = true
+        } else {
+            return isAllOk = false
+        }
+    }
+    
+    private func errorAnswer() -> String? {
+        var errorMessage = ""
+        //
+        if dividendString.contains(".") ||
+            divisorString.contains(".") {
+            errorMessage += NSLocalizedString("errorOne", comment: "point in number")
+        }
+        
+        if dividendString.contains("-") ||
+            divisorString.contains("-") {
+            errorMessage += NSLocalizedString("errorTwo", comment: "minus in text")
+        }
+        
+        if Int(dividendString) == nil ||
             Int(divisorString) == nil {
-              errorMessage += "Use only digits. "
-          }
-          
-          if Int(dividendString) == 0 ||
-          Int(divisorString) == 0 {
-             errorMessage += """
-                             The number can't be 0
-                             """
-         }
-          
-          return errorMessage.isEmpty ? nil : errorMessage
-      }
+            errorMessage += NSLocalizedString("errorThree", comment: "only digits")
+        }
+        
+        if Int(dividendString) == 0 ||
+            Int(divisorString) == 0 {
+            errorMessage += NSLocalizedString("errorFour", comment: "no 0 numbers")
+        }
+        
+        if dividendString.contains(",") ||
+            divisorString.contains(",") {
+            errorMessage += NSLocalizedString("errorSix", comment: "point in number")
+        }
+        
+        return errorMessage.isEmpty ? nil : errorMessage
+    }
 }
 #Preview {
     ContentView(divider: 12 , dividend: 1)

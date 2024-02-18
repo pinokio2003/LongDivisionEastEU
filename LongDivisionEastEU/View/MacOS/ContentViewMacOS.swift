@@ -25,14 +25,14 @@ struct ContentViewMacOS: View {
             Color(Color.background)
                 .ignoresSafeArea()
             HStack {
-                    if taskStatus == .success {
-                        
-                        Image(systemName: "plus.magnifyingglass")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundStyle(Color.gray)
-                        Spacer()
-                        Slider(value: $cellSize, in: 30...100)
+                if taskStatus == .success {
+                    
+                    Image(systemName: "plus.magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(Color.gray)
+                    Spacer()
+                    Slider(value: $cellSize, in: 30...100)
                 }
             }
             .frame(width: 155, height: 30)
@@ -84,7 +84,7 @@ struct ContentViewMacOS: View {
                         
                         print(isAllOk)
                         
-                        taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? "The dividend cannot be less than the divisor")
+                        taskStatus = isAllOk ? .success : .failed(errorAnswer() ?? NSLocalizedString("errorFive", comment: "divid > divire"))
                         
                         return taskStatus
                     }
@@ -124,7 +124,7 @@ struct ContentViewMacOS: View {
         }
     }
     
-  private func checkIsAllGood() {
+    private func checkIsAllGood() {
         let a = Int(dividendString) ?? 0
         let b = Int(divisorString) ?? 0
         
@@ -138,36 +138,33 @@ struct ContentViewMacOS: View {
         }
     }
     
- private func errorAnswer() -> String? {
+    private func errorAnswer() -> String? {
         var errorMessage = ""
-            //
+        //
         if dividendString.contains(".") ||
             divisorString.contains(".") {
-            errorMessage += """
-                            The symbol "." cannot be used.
-                            The number can only be an integer.
-                            """
+            errorMessage += NSLocalizedString("errorOne", comment: "point in number")
         }
         
-         if dividendString.contains("-") ||
+        if dividendString.contains("-") ||
             divisorString.contains("-") {
-            errorMessage += """
-                            The symbol "-" cannot be used.
-                            The number can only positive.
-                            """
+            errorMessage += NSLocalizedString("errorTwo", comment: "minus in text")
         }
         
         if Int(dividendString) == nil ||
             Int(divisorString) == nil {
-            errorMessage += "Use only digits. "
+            errorMessage += NSLocalizedString("errorThree", comment: "only digits")
         }
         
         if Int(dividendString) == 0 ||
-        Int(divisorString) == 0 {
-           errorMessage += """
-                           The number can't be 0
-                           """
-       }
+            Int(divisorString) == 0 {
+            errorMessage += NSLocalizedString("errorFour", comment: "no 0 numbers")
+        }
+        
+        if dividendString.contains(",") ||
+            divisorString.contains(",") {
+            errorMessage += NSLocalizedString("errorSix", comment: "point in number")
+        }
         
         return errorMessage.isEmpty ? nil : errorMessage
     }

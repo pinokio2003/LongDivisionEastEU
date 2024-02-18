@@ -5,3 +5,12 @@
   Created by Anatolii Kravchuk on 18.02.2024.
   
 */
+"Dividend" = "Dividend";
+"Divisor"  = "Divisor";
+"Calculate" = "Calculate";
+"errorOne" = "The symbol \".\" cannot be used.\nThe number can only be an integer.\n";
+"errorTwo" = "The symbol \"-\" cannot be used.\nThe number can only positive.\n";
+"errorThree" = "Use only digits.\n";
+"errorFour" = "The number can't be 0.\n";
+"errorFive" = "The dividend cannot be less than the divisor\n";
+"errorSix" =  "The symbol \",\" cannot be used.\nThe number can only be an integer.\n";

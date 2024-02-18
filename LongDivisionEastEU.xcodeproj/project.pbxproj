@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A726EB2B2B77E37C007D4961 /* MainMathViewMacOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726EB2A2B77E37C007D4961 /* MainMathViewMacOs.swift */; };
 		A726EB2E2B77EC86007D4961 /* ContentViewMacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A726EB2D2B77EC86007D4961 /* ContentViewMacOS.swift */; };
+		A72A7C8E2B81FFCF00343479 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A72A7C902B81FFCF00343479 /* Localizable.strings */; };
 		A7B953452B73D1C400195BBB /* LongDivisionEastEUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B953442B73D1C400195BBB /* LongDivisionEastEUApp.swift */; };
 		A7B953472B73D1C400195BBB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B953462B73D1C400195BBB /* ContentView.swift */; };
 		A7B953492B73D1C500195BBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7B953482B73D1C500195BBB /* Assets.xcassets */; };
@@ -23,6 +24,9 @@
 /* Begin PBXFileReference section */
 		A726EB2A2B77E37C007D4961 /* MainMathViewMacOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMathViewMacOs.swift; sourceTree = "<group>"; };
 		A726EB2D2B77EC86007D4961 /* ContentViewMacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewMacOS.swift; sourceTree = "<group>"; };
+		A72A7C8F2B81FFCF00343479 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A72A7C912B81FFDD00343479 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A72A7C922B81FFE000343479 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7B953412B73D1C400195BBB /* LongDivisionEastEU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LongDivisionEastEU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7B953442B73D1C400195BBB /* LongDivisionEastEUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongDivisionEastEUApp.swift; sourceTree = "<group>"; };
 		A7B953462B73D1C400195BBB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 				A7B953482B73D1C500195BBB /* Assets.xcassets */,
 				A7B9534A2B73D1C500195BBB /* LongDivisionEastEU.entitlements */,
 				A7B9534B2B73D1C500195BBB /* Preview Content */,
+				A72A7C902B81FFCF00343479 /* Localizable.strings */,
 			);
 			path = LongDivisionEastEU;
 			sourceTree = "<group>";
@@ -197,7 +202,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				uk,
+				ru,
 			);
 			mainGroup = A7B953382B73D1C400195BBB;
 			packageReferences = (
@@ -217,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7B9534D2B73D1C500195BBB /* Preview Assets.xcassets in Resources */,
+				A72A7C8E2B81FFCF00343479 /* Localizable.strings in Resources */,
 				A7B953492B73D1C500195BBB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +248,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A72A7C902B81FFCF00343479 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A72A7C8F2B81FFCF00343479 /* en */,
+				A72A7C912B81FFDD00343479 /* ru */,
+				A72A7C922B81FFE000343479 /* uk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A7B9534E2B73D1C500195BBB /* Debug */ = {
